@@ -1,21 +1,18 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Request
 from src.infra.Database import Database
+from src.data.control.CarroViewModel import CarroViewModel
+from src.data.entities.carro import Carro
 router = APIRouter()
 
-@router.get("/api/")
-async def execute_query():
-    print('here')
+handle = CarroViewModel()
 
-    db = Database()
+@router.get("/api/carros")
+async def getAll():
+    return handle.getCarros()
 
-    query = "SELECT * FROM newrma.pergunta_avaliacao;"
-    result = db.execute_query(query)
-
-    return result
-    # try:
-    #     with engine.connect() as conn:
-    #         result = conn.execute(text(sql_query))
-    #         rows = result.fetchall()
-    #         return rows
-    # except Exception as e:
-    #     raise HTTPException(status_code=500, detail=str(e))
+@router.post("/api/carro")
+async def create_item(request: Request):
+    # Lê o conteúdo do corpo da requisição
+    body = await request.json()
+    carro = Carro(nome=body['nome'], modelo=body['modelo'], descricao=body['descricao'], img=body['img'], id=None)
+    return handle.createCarro(carro)
