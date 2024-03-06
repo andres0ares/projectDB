@@ -7,10 +7,13 @@ load_dotenv()
 
 from src.presentation import CarsRouter
 
+FRONTEND_URL = os.getenv("FRONTEND_URL")
 
 origins = [
-    os.getenv("FRONTEND_URL"),
+    f"{FRONTEND_URL}",
 ]
+
+print(origins)
 
 app = FastAPI()
 

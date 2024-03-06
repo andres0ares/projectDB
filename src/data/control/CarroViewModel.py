@@ -14,3 +14,12 @@ class CarroViewModel:
         query = f"INSERT INTO defaultdb.carro (nome, modelo, descricao, img) VALUES ('{carro.nome}', '{carro.modelo}', '{carro.descricao}', '{carro.img}');"
         print(query)
         return self.db.queryModify(query)
+    
+    #a fazer
+    def updateCarro(self, carro: Carro):
+        print('edit carro: ', carro.id)
+        return True
+    #a fazer
+    def deleteCarro(self, id: int):
+        print('delete carro: ', id)
+        return True
