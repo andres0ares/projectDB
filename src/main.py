@@ -5,15 +5,14 @@ import os
 
 load_dotenv() 
 
-from src.presentation import CarsRouter
+from src.presentation import CarsControllers
+from src.presentation import ClienteControllers
 
 FRONTEND_URL = os.getenv("FRONTEND_URL")
 
 origins = [
     f"{FRONTEND_URL}",
 ]
-
-print(origins)
 
 app = FastAPI()
 
@@ -26,4 +25,5 @@ app.add_middleware(
 )
 
 
-app.include_router(CarsRouter.router)
+app.include_router(CarsControllers.router)
+app.include_router(ClienteControllers.router)

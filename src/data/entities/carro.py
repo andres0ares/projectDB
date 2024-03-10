@@ -1,10 +1,11 @@
-from abc import ABC, abstractmethod
+from pydantic import BaseModel
 
-# Classe abstrata representando os usuários do sistema
-class Carro(ABC):
-    def __init__(self, nome, modelo, descricao, img, id):
-        self.id = id # se o usuário está logado
-        self.modelo = modelo # id salvo no banco de dados remoto
-        self.descricao = descricao # id unico
-        self.nome = nome  # nome
-        self.img = img  # nome
+class Carro(BaseModel):
+    id: int | None = None
+    modelo: str
+    descricao: str | None = None
+    nome: str
+    img: str 
+
+    def print(self):
+        print(f"Carro: {self.nome}")
