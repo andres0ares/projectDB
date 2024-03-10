@@ -1,4 +1,4 @@
-fastapi==0.68.0
+fastapi==0.110.0
 uvicorn==0.15.0
 # sqlalchemy==1.4.25
 # psycopg2
@@ -6,4 +6,4 @@ uvicorn==0.15.0
 pymysql
 python-dotenv
 cryptography
-pydantic
+pydantic==2.6.3
