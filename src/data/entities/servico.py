@@ -1,10 +1,11 @@
 from pydantic import BaseModel
+from typing import Union
 
 class Servico(BaseModel):
-    id: int | None = None
+    id: Union[int, None] = None
     nome: str
     img: str 
-    descricao: str | None = None
+    descricao: Union[str, None] = None
     preco: float
 
     def print(self):

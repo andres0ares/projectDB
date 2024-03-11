@@ -1,10 +1,10 @@
 from pydantic import BaseModel
+from typing import Union
 
 class Cliente(BaseModel):
+    id: Union[int, None] = None
     name: str
-    description: str | None = None
-    price: float
-    tax: float | None = None
+    email: str
 
     def print(self):
         print(f"Cliente: {self.name}")

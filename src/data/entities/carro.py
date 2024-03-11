@@ -1,9 +1,10 @@
 from pydantic import BaseModel
+from typing import Union
 
 class Carro(BaseModel):
-    id: int | None = None
+    id: Union[int, None] = None
     modelo: str
-    descricao: str | None = None
+    descricao: Union[str, None] = None
     nome: str
     img: str 
 
