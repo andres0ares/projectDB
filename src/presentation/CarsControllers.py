@@ -10,6 +10,14 @@ handle = CarroDAO()
 async def getAll():
     return handle.getCarros()
 
+@router.get("/api/car/{id}")
+async def getAll(id: int):
+    return handle.get(id)
+
+@router.get("/api/car/search/{name}")
+async def getAll(name: str):
+    return handle.searchByName(name)
+
 @router.post("/api/car")
 async def create_item(carro: Carro):
     return handle.createCarro(carro)
