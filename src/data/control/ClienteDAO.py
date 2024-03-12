@@ -1,25 +1,21 @@
 from src.data.entities.carro import Carro
 from src.infra.Database import Database
 from src.data.entities.cliente import Cliente
-
+from src.data.entities.login import Login
+from fastapi import HTTPException
+ 
 class ClienteDAO:
     def __init__(self):
         self.db =  Database()
-
-    # def getCarros(self) -> list[Carro]:
-    #     query = "SELECT * FROM carro;"
-    #     return self.db.queryMany(query)
     
+    # a fazer
     def create(self, cliente: Cliente):
-        #query = f"INSERT INTO defaultdb.carro (nome, modelo, descricao, img) VALUES ('{carro.nome}', '{carro.modelo}', '{carro.descricao}', '{carro.img}');"
         cliente.print()
-        return True#self.db.queryModify(query)
+        return True
     
-    #a fazer
-    def updateCarro(self, carro: Carro):
-        print('edit carro: ', carro.id)
-        return True
-    #a fazer
-    def deleteCarro(self, id: int):
-        print('delete carro: ', id)
-        return True
+    # a fazer
+    def login(self, login: Login):
+        # caso o login nao seja concluido usar a linha abaixo
+        # raise HTTPException(status_code=401, detail="Unauthorized")
+        return {"nome": f"{login.email}"}
+    
