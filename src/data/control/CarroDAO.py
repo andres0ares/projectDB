@@ -6,33 +6,39 @@ class CarroDAO:
     def __init__(self):
         self.db =  Database()
 
-    def getCarros(self) -> list[Carro]:
-        return [Carro.model_validate(car) for car in self.db.queryMany("SELECT * FROM carro;")]
     
-    def createCarro(self, carro: Carro):
+    def getAll(self) -> list[Carro]:
+        #retorna todos os itens da tabela carro
+        query = "SELECT * FROM carro;"
+
+        return [Carro.model_validate(car) for car in self.db.query(query)]
+    
+    def create(self, carro: Carro):
+        #cria um novo item da tabela carro
         query = f"INSERT INTO defaultdb.carro (nome, modelo, descricao, img) VALUES ('{carro.nome}', '{carro.modelo}', '{carro.descricao}', '{carro.img}');"
-        return self.db.queryModify(query)
+
+        return self.db.query(query)
     
-    # a fazer 
     def get(self, id: int):
-        print(f"get carro por id: {id} ")
-        #apenas para teste, deve implenetar a query
-        cars = self.getCarros()
-        return next(filter(lambda x: x.id == id, cars), None)
+        #busca um item na tabela carro poelo id
+        query = f"SELECT * FROM carro WHERE id = {id};" 
+
+        return self.db.query(query)
     
-    # a fazer
-    def updateCarro(self, carro: Carro):
-        print(f"edit carro: {carro.id}", )
-        return True
+    def update(self, carro: Carro):
+        #atualiza o carro
+        query = f"UPDATE carro SET modelo = '{carro.modelo}', descricao = '{carro.descricao}', nome = '{carro.nome}', img = '{carro.img}' WHERE id = {carro.id};"
+        
+        return self.db.query(query)
     
-    # a fazer
-    def deleteCarro(self, id: int):
-        print(F"delete carro: {id}")
-        return True
+    def delete(self, id: int):
+        #remove um carro pelo id
+        query = f"DELETE FROM carro WHERE id = {id};"
+
+        return self.db.query(query)
     
-    # a fazer
     def searchByName(self, name: str):
-        print(f"pesquisando: {name}...")
-        # esta retornado todos apenas para teste, atualizar com a devida query
-        #deve retornar uma lista de carros
-        return self.getCarros()
+        #busca os carros que possuem a substring name na propriedade nome.
+        query = f"SELECT * FROM carro WHERE nome LIKE '%{name}%';"
+       
+        return self.db.query(query)

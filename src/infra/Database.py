@@ -31,56 +31,19 @@ class Database:
             write_timeout=timeout,
         )
 
-    def execute_query(self, sql_query,  values=None):
+    def query(self, sql_query):
         # Obtém uma conexão com o banco de dados
         connection = self.get_connection()
         
         try:
             cursor = connection.cursor()
-            if values:
-                cursor.execute(sql_query, values)
-            else:
-                cursor.execute(sql_query)
-
-            # Commit da transação para efetivar as alterações no banco de dados
-            connection.commit()
-
-            return cursor.fetchall()
-        finally:
-            # Fecha a conexão após a consulta
-            connection.close()
-
-    def queryMany(self, sql_query):
-        # Obtém uma conexão com o banco de dados
-        connection = self.get_connection()
-        try:
-            cursor = connection.cursor()
             cursor.execute(sql_query)
-            return cursor.fetchall()
-        finally:
-            # Fecha a conexão após a consulta
-            connection.close()
 
-    def queryOne(self, sql_query):
-        # Obtém uma conexão com o banco de dados
-        connection = self.get_connection()
-        try:
-            cursor = connection.cursor()
-            cursor.execute(sql_query)
-            return cursor.fetchone()
-        finally:
-            # Fecha a conexão após a consulta
-            connection.close()
+            # Se a consulta é de modificação, faz o commit da transação para efetivar as alterações no banco de dados
+            if sql_query.strip().split()[0].lower() in ['insert', 'update', 'delete']:
+                connection.commit()
 
-    def queryModify(self, sql_query):
-        # Obtém uma conexão com o banco de dados
-        connection = self.get_connection()
-        try:
-            cursor = connection.cursor()
-            cursor.execute(sql_query)
-            connection.commit()
-
-            return cursor
+            return cursor.fetchall()  # Retorna os resultados da consulta
         finally:
             # Fecha a conexão após a consulta
             connection.close()

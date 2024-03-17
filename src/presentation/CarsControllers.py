@@ -8,7 +8,7 @@ handle = CarroDAO()
 
 @router.get("/api/cars")
 async def getAll():
-    return handle.getCarros()
+    return handle.getAll()
 
 @router.get("/api/car/{id}")
 async def getAll(id: int):
@@ -20,13 +20,13 @@ async def getAll(name: str):
 
 @router.post("/api/car")
 async def create_item(carro: Carro):
-    return handle.createCarro(carro)
+    return handle.create(carro)
 
 @router.put("/api/car")
 async def create_car(carro: Carro):
-    return handle.updateCarro(carro)
+    return handle.update(carro)
 
 @router.delete("/api/car/{id}")
 async def delete_car(id: int):
-    return handle.deleteCarro(id)
+    return handle.delete(id)
 

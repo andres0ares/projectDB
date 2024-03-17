@@ -6,6 +6,7 @@ class Relatorio:
         pass
 
     def getList(self):
+        # titulos dos relatorios exibidos no sistema
         return [
             { 
                 "option": 0,
@@ -14,14 +15,14 @@ class Relatorio:
             },
             { 
                 "option": 1,
-                "name": "Relótorio test 2",
-                "subtitle": "Apenas para teste"
+                "name": "Quantidades",
+                "subtitle": "Quantidades de itens cadastrados no sistema."
             }
         ]
     
 
     def get(self, option: int):
-
+        # retorna o handle do tipo de relatorio
         options = {
             0: self.option0,
             1: self.option1
@@ -30,30 +31,28 @@ class Relatorio:
         return options.get(option)()
     
     def option0(self):
+        #implementa o relatorio 1 a lista de carros cadastrados
         carHandle = CarroDAO()
-        return carHandle.getCarros()
+        return carHandle.getAll()
     
     def option1(self):
+        #implementa o relatorio 2 com as quantidades dos itens:
+        carHandle = CarroDAO()
         return [
             {
-                "item": "exemplo 1",
-                "item 2": "exemplo 1",
-                "item 3": "exemplo 1",
-                "item 4": "exemplo 1",
+                " ": "Quantidade de carros cadastrados:",
+                "Quantidade": len(carHandle.getAll())
             },
             {
-                "item": "exemplo 2",
-                "item 2": "exemplo 2",
-                "item 3": "exemplo 2",
-                "item 4": "exemplo 2",
+                " ": "Quantidade de clientes cadastrados:",
+                "Quantidade": 0
             },
             {
-                "item": "exemplo 3",
-                "item 2": "exemplo 3",
-                "item 3": "exemplo 3",
-                "item 4": "exemplo 3",
+                " ": "Quantidade de vendedores cadastrados:",
+                "Quantidade": 0
             }
         ]
+    
      
     
     
