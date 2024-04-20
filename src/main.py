@@ -8,6 +8,7 @@ load_dotenv()
 from src.presentation import CarsControllers
 from src.presentation import ClienteControllers
 from src.presentation import ReportControllers
+from src.presentation import FuncionariosControllers
 
 FRONTEND_URL = os.getenv("FRONTEND_URL")
 
@@ -29,3 +30,4 @@ app.add_middleware(
 app.include_router(CarsControllers.router)
 app.include_router(ClienteControllers.router)
 app.include_router(ReportControllers.router)
+app.include_router(FuncionariosControllers.router)
