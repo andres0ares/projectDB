@@ -9,7 +9,7 @@ class CarroDAO:
     
     def getAll(self) -> list[Carro]:
         #retorna todos os itens da tabela carro
-        query = "SELECT * FROM carro;"
+        query = "SELECT * FROM carro WHERE inativo = 0;"
 
         return [Carro.model_validate(car) for car in self.db.query(query)]
     
@@ -33,7 +33,8 @@ class CarroDAO:
     
     def delete(self, id: int):
         #remove um carro pelo id
-        query = f"DELETE FROM carro WHERE id = {id};"
+        query = f"UPDATE carro SET inativo = 1 WHERE id = {id};"
+        #query = f"DELETE FROM carro WHERE id = {id};"
 
         return self.db.query(query)
     

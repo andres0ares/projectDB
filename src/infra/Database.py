@@ -43,7 +43,11 @@ class Database:
             if sql_query.strip().split()[0].lower() in ['insert', 'update', 'delete']:
                 connection.commit()
 
-            return cursor.fetchall()  # Retorna os resultados da consulta
+                # Retorna o ID da última linha inserida
+                return cursor.lastrowid
+            else:
+                # Se não for uma consulta de modificação, retorna os resultados da consulta
+                return cursor.fetchall()
         finally:
             # Fecha a conexão após a consulta
             connection.close()

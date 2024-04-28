@@ -7,29 +7,16 @@ class FuncionarioDAO:
     def __init__(self):
         self.db =  Database()
 
-    # a fazer
     def getAll(self):
-        staffs = [
-            {
-                'id': 1,
-                'nome': 'Fulano',
-                'email': 'fulano@gmail.com',
-                'senha': 'fulano123',
-            },
-            {
-                'id': 2,
-                'nome': 'Fulano de Tal',
-                'email': 'fulano2@gmail.com',
-                'senha': 'fulano123',
-            }
-        ]
-
-        return staffs
+       #retorna todos os itens da tabela carro
+        query = "SELECT * FROM funcionario;"
+        return [Funcionario.model_validate(funcionario) for funcionario in self.db.query(query)]
     
-    # a fazer
     def create(self, funcionario: Funcionario):
-        funcionario.print()
-        return True
+        #cria um novo item da tabela carro
+        query = f"INSERT INTO funcionario (nome, email, senha ) VALUES ('{funcionario.nome}', '{funcionario.email}', '{funcionario.senha}');"
+
+        return self.db.query(query)
     
     # a fazer
     def login(self, login: Login):
