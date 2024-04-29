@@ -31,3 +31,7 @@ async def changeStatus(body: Id):
 @router.get("/api/atendimentos/format")
 async def getAtendimentos():
     return handle2.getAtendimentosFormat()
+
+@router.get("/api/atendimentos/contrato")
+async def getAtendimentos():
+    return handle.getAllNextAtendimentos()

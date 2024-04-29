@@ -2,7 +2,7 @@ from src.infra.Database import Database
 # from src.data.entities.cliente import Cliente
 # from src.data.entities.login import Login
 from fastapi import HTTPException
-from datetime import datetime
+import datetime
 from src.data.entities.body import ContratoBody, Id
 from src.data.control.AtendimentoDAO import AtendimentoDAO
 from src.data.control.PagamentoDAO import PagamentoDAO
@@ -66,8 +66,8 @@ class ContratoDAO:
         return self.db.query(query)
     
     def getAllNextAtendimentos(self):
-        
-        query = f"SELECT * FROM defaultdb.contrato_detalhes_com_confirmacao WHERE atendimento_data >= CURDATE();"
+        data_atual = datetime.date.today()
+        query = f"SELECT * FROM defaultdb.contrato_detalhes_com_confirmacao WHERE atendimento_data >= '{data_atual}';"
         return self.db.query(query)
     
     
