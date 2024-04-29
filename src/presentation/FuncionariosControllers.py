@@ -18,3 +18,7 @@ async def create(funcionario: Funcionario):
 @router.put("/api/funcionario")
 async def update(funcionario: Funcionario):
     return handle.update(funcionario)
+
+@router.post("/api/funcionario/login")
+async def create_item(login: Login):
+    return handle.login(login)

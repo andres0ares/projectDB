@@ -7,7 +7,6 @@ class ClienteDAO:
     def __init__(self):
         self.db =  Database()
     
-    # a fazer
     def create(self, cliente: Cliente):
         query = f"INSERT INTO cliente (nome, email, senha, cidade, e_flamengo, assiste_one_piece ) VALUES ('{cliente.nome}', '{cliente.email}', '{cliente.senha}', '{cliente.cidade}', {1 if cliente.e_flamengo else 0}, {1 if cliente.assiste_one_piece else 0});"
         try:  
@@ -16,7 +15,6 @@ class ClienteDAO:
         except:
             return self.db.query(query)
     
-    # a fazer
     def login(self, login: Login):
         # caso o login nao seja concluido usar a linha abaixo
         # raise HTTPException(status_code=401, detail="Unauthorized")

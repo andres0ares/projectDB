@@ -18,11 +18,15 @@ class FuncionarioDAO:
 
         return self.db.query(query)
     
-    # a fazer
     def login(self, login: Login):
         # caso o login nao seja concluido usar a linha abaixo
         # raise HTTPException(status_code=401, detail="Unauthorized")
-        return {"nome": f"{login.email}"}
+        #busca um item na tabela cliente pelo id
+        try :
+            query = f"SELECT * FROM funcionario WHERE email = '{login.email}' AND senha = '{login.password}' LIMIT 1;" 
+            return Funcionario.model_validate(self.db.query(query)[0]).getInfo()
+        except:
+            raise HTTPException(status_code=401, detail="Unauthorized")
     
     def update(self, funcionario: Funcionario):
         funcionario.print()

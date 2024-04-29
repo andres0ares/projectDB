@@ -24,3 +24,11 @@ class ContratoBody(BaseModel):
     cliente: Cliente
     atendimentos: list[Atendimento]
     forma_pagamento: int
+
+class Id(BaseModel):
+    contrato_id: int
+    funcionario_id: int
+
+class Aprove(BaseModel):
+    contrato_id: int
+    forma_pagamento: int

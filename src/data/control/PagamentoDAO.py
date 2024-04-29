@@ -1,4 +1,6 @@
 from src.infra.Database import Database
+from src.data.entities.body import Aprove
+
 class PagamentoDAO:
     def __init__(self):
         self.db =  Database()
@@ -34,5 +36,15 @@ class PagamentoDAO:
         query2 = f" INSERT INTO {options[forma_pagamento-1]} (confirmado, Pagamento_contrato_id, Pagamento_contrato_cliente_id) VALUES (0, {id_contrato}, {id_cliente});"
 
         return self.db.query(query2)
+    
+    def updateAprove(self, body: Aprove):
+
+        options = ["cartao", "boleto", "pix", "berries"]
+
+        query = f"UPDATE {options[body.forma_pagamento-1]} SET confirmado = 1  WHERE Pagamento_contrato_id = {body.contrato_id};"
+        
+        return self.db.query(query)
+        
+    
 
         

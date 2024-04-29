@@ -9,3 +9,10 @@ class Funcionario(BaseModel):
 
     def print(self):
         print(f"Funcionario: {self.nome}, email: {self.email}, senha: {self.senha}")
+
+    def getInfo(self):
+        return {
+            "id": self.id,
+            "nome": self.nome,
+            "email": self.email,
+        }

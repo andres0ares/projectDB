@@ -3,7 +3,7 @@ from src.infra.Database import Database
 # from src.data.entities.login import Login
 from fastapi import HTTPException
 from datetime import datetime
-from src.data.entities.body import ContratoBody
+from src.data.entities.body import ContratoBody, Id
 from src.data.control.AtendimentoDAO import AtendimentoDAO
 from src.data.control.PagamentoDAO import PagamentoDAO
 
@@ -38,7 +38,37 @@ class ContratoDAO:
         self.pagamentoDAO.create(contrato.forma_pagamento, contrato.cliente.id, contrato_id, valor, desconto, valor_total)
 
         return True
+    
+    def getAllByClient(self, id: int):
+
+        query = f"SELECT * FROM defaultdb.contrato_detalhes_com_confirmacao WHERE cliente_id = {id};" 
+        return self.db.query(query)
+    
+    def getAllByStatus(self, status: int):
+
+        query = f"SELECT * FROM defaultdb.contrato_detalhes_com_confirmacao WHERE contrato_status = {status};" 
+        return self.db.query(query)
+
+    def getAllByStaff(self, staff_id: int): 
+        query = f"SELECT * FROM defaultdb.contrato_detalhes_com_confirmacao WHERE funcionario_id = {staff_id};" 
+        return self.db.query(query)
+
+    def updateStatus(self, body: Id):
+
+        #atualiza status e funcionario
+        query = f"UPDATE contrato SET Funcionario_id = {body.funcionario_id}, status = 1  WHERE id = {body.contrato_id};"
         
+        self.db.query(query)
+
+        #atualiza status atendimento
+        query = f"UPDATE atendimento SET status = 1  WHERE contrato_id = {body.contrato_id};"
+        
+        return self.db.query(query)
+    
+    def getAllNextAtendimentos(self):
+        
+        query = f"SELECT * FROM defaultdb.contrato_detalhes_com_confirmacao WHERE atendimento_data >= CURDATE();"
+        return self.db.query(query)
     
     
     
